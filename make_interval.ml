@@ -13,7 +13,8 @@ end
 ;;
 
 
-module Make_interval(Endpoint: Comparable) : Interval_intf = struct
+module Make_interval(Endpoint: Comparable)
+       : (Interval_intf with type endpoint = Endpoint.t) = struct
   type t =
     | Interval of Endpoint.t * Endpoint.t
     | Empty
