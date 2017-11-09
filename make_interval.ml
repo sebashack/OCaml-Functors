@@ -1,12 +1,27 @@
 open Comparable;;
 open Ordering;;
 
-module Make_interval(Endpoint: Comparable) = struct
-  type ord = Ordering.ord = | LT | EQ | GT;;
+module type Interval_intf = sig
+  type t;;
+  type endpoint;;
 
+  val create: endpoint -> endpoint -> t;;
+  val is_empty: t -> bool;;
+  val contains: t -> endpoint -> bool;;
+  val intersect: t -> t -> t;;
+end
+;;
+
+
+module Make_interval(Endpoint: Comparable) : Interval_intf = struct
   type t =
     | Interval of Endpoint.t * Endpoint.t
     | Empty
+  ;;
+
+  type endpoint = Endpoint.t;;
+
+  type ord = Ordering.ord = | LT | EQ | GT;;
 
   let create low high =
     match Endpoint.compare low high with
