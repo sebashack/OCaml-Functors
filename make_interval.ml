@@ -14,13 +14,11 @@ end
 
 
 module Make_interval(Endpoint: Comparable)
-       : (Interval_intf with type endpoint = Endpoint.t) = struct
+       : (Interval_intf with type endpoint := Endpoint.t) = struct
   type t =
     | Interval of Endpoint.t * Endpoint.t
     | Empty
   ;;
-
-  type endpoint = Endpoint.t;;
 
   type ord = Ordering.ord = | LT | EQ | GT;;
 
